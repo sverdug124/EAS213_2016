@@ -1,15 +1,16 @@
 # EAS213_2016
 July 21st/22nd	Developing a classifier:
 ===================================
-*	Review of image as array
-*	Filtering data via Boolean masking
+* Review of image as array
+* Filtering data via Boolean masking
+
 Developing a classifier
-•	Computing statistics on selected regions
-•	Using statistics to build an NDVI classifier
-•	Creating classifiers for water, building, clouds
+* Computing statistics on selected regions
+* Using statistics to build an NDVI classifier
+* Creating classifiers for water, building, clouds
 Training a classifier:
-•	Comparing class statistics
-•	Updating classification rules based on findings.
+* Comparing class statistics
+* Updating classification rules based on findings.
 
 Homework: Submit an ipython notebook where you:
 ================================================
@@ -28,23 +29,24 @@ Homework: Submit an ipython notebook where you:
 The grade will be almost completely dependent on the explainations.
 
 
+July 25th: Testing a classifier
+===============================
+* Factoring out classifier rules into function
+* Applying to a new image
+* Evaluating the results – confusion matrix, etc
+* Updating the classifier
 
-July 25th	Testing a classifier
-•	Factoring out classifier rules into function
-•	Applying to a new image
-•	Evaluating the results – confusion matrix, etc
-•	Updating the classifier
-
-July 26th
-	Expanding a classifier
-•	Incorporating Temperature & Optical Depth
-•	Adding classes & subclassing 
-•	Comparing classes over time
+July 26th: Expanding a classifier
+=================================
+* Incorporating Temperature & Optical Depth
+* Adding classes & subclassing 
+* Comparing classes over time
 Homework: Write a 1-2 page report (with graphs) summarizing:
-•	How the classes have been improved
-•	Why the classification is reliable
-July 28th	Project: Build Your Own Classifier
+* How the classes have been improved
+* Why the classification is reliable
 
+July 28th: Project: Build Your Own Classifier
+==================================================
 Develop a classifier for at least 1 surface type or weather phenomena not covered in class. The project must
 •	Explain the reasoning for the classification criteria
 •	Describe the training & testing of the classifier
