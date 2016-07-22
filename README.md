@@ -48,11 +48,11 @@ Homework: Write a 1-2 page report (with graphs) summarizing:
 July 28th: Project: Build Your Own Classifier
 ==================================================
 Develop a classifier for at least 1 surface type or weather phenomena not covered in class. The project must
-•	Explain the reasoning for the classification criteria
-•	Describe the training & testing of the classifier
-•	Evaluate the skill of the classifier 
-•	Compare the class to:
-o	Non-classifier data
-o	Data in at least one complementary but opposing class (so NDVI vs. water)
+* Explain the reasoning for the classification criteria
+* Describe the training & testing of the classifier
+* Evaluate the skill of the classifier 
+*	Compare the class to:
+  *	Non-classifier data
+  *	Data in at least one complementary but opposing class (so NDVI vs. water)
 
 Extra Credit: Repeat the project with a 2nd surface type/weather phenomena. You may compare this class to the 1st class you built for the project. 
