@@ -31,6 +31,7 @@ The grade will be almost completely dependent on the explainations.
 
 July 25th: Testing a classifier
 ===============================
+* More Data: http://glasslab.engr.ccny.cuny.edu/u/hannah/eas213/
 * Factoring out classifier rules into function
 * Applying to a new image
 * Evaluating the results – confusion matrix, etc
