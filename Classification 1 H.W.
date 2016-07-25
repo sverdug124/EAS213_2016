@@ -1,0 +1,113 @@
+#read in data
+import landsat as lf
+rgbpath = "data/landsat_RGBN.txt" 
+rgbn = lf.landsat_read(rgbpath)
+# compute the array at a given contrast
+rgb_array = lf.rgb_contrast(rgbn[...,:3], 3)
+#use zoom to find region of interest
+%matplotlib notebook
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+ax.imshow(rgb_array)
+# xbounds: 260, 360
+# ybounds: 260, 400
+x1, x2 = 260, 360
+y1, y2 = 260, 400
+subset = rgb_array[x1:x2, y1:y2]
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+ax.imshow(subset)
+# plot pdf of red in that region
+red = subset[...,0]
+
+import scipy.stats as st
+import numpy as np
+
+#estimate the P function of the distribution
+kernal = st.gaussian_kde(red.flatten())
+# color values range between 0 & 1 
+x = np.linspace(0,1,100) #the range of potential color values
+y = kernal(x) #probability of each x happening
+
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+ax.plot(x, y, color='red')
+ax.set_xlabel("Intensity")
+ax.set_ylabel("Probability")
+
+# now add the pdfs for green & blue
+
+#unpack red, green, blue
+red = rgb_array[...,0]
+green = rgb_array[...,1]
+blue = rgb_array[...,2]
+
+#lets build an arbitrary blue mask
+bmean = blue.mean()
+print(bmean)
+blue_mask = (blue>bmean)
+print (blue_mask)
+
+import numpy as np
+import matplotlib.cm as mcm
+import matplotlib.colors as mcolors
+#what does that mean?
+
+cmap = mcm.bone
+norm = mcolors.BoundaryNorm([0,1,2],cmap.N)
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+im = ax.imshow(blue_mask, cmap=cmap, norm=norm)
+cb = fig.colorbar(im, ax=ax)
+cb.set_ticks([0.5,1.5])
+cb.set_ticklabels(["not in mask","in mask"])
+fig.canvas.draw()
+
+#plot only the data shown in the map
+rgb_copy = rgb_array.copy()
+#zero out values not in mask
+
+rgb_copy[~blue_mask] = np.nan
+cmap = mcm.bone
+norm = mcolors.BoundaryNorm([0,1,2],cmap.N)
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+im = ax.imshow(rgb_copy)
+fig.canvas.draw()
+
+#compare data in mask to data not in mask:
+class1 = rgb_array[blue_mask] # data in mask
+class2 = rgb_array[~blue_mask] # data outside of mask
+
+x = np.linspace(0,1,100) 
+def pdf(data):
+    kernal = st.gaussian_kde(data.flatten())  
+    y = kernal(x) 
+    return y
+
+colors = ['red', 'green','blue']
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+ax.set_title("class 1")
+for i, c in enumerate(colors):
+    ax.plot(x, pdf(class1[i]), color=c, label="class 1")
+    ax.plot(x, pdf(class2[i]), color=c, linestyle='--', label='class 2')
+
+ax.legend()
+
+#combine masks and show which region is in both
+blue_mask = (blue>blue.mean())
+red_mask = (red>red.mean())
+comb_mask = (blue_mask & red_mask)
+
+cmap = mcm.bone
+norm = mcolors.BoundaryNorm([0,1,2],cmap.N)
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+im = ax.imshow(comb_mask, cmap=cmap, norm=norm)
+cb = fig.colorbar(im, ax=ax)
+cb.set_ticks([0.5,1.5])
+cb.set_ticklabels(["not in mask","in mask"])
+fig.canvas.draw()
+
